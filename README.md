@@ -1,2 +1,2 @@
 # Data-Scraping
- Extract data from wesites
+Extract data from websites
