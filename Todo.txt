@@ -1,0 +1,68 @@
+TO-DO
+
+
+    !Important!
+
+Create project class (DONE)
+- Create internal, prescraped, external attrs (DONE)
+
+Restructuring
+- Main python files code under main(), import without running code
+***
+if __name__ == '__main__':
+    main()
+***
+- Segment all classes and functions into one or two separate folders
+- Import classes and functions (DONE)
+
+Function list_projects
+- Get variable path to Projects (DONE)
+- Get all immediate subdirectories (DONE)
+
+Import/Export code takes in a project class variable
+- Import project (DONE)
+- Export project 
+- Load/transform project variables (DONE)
+
+Import code:
+- Add check if files exist (DONE)
+- Add confirmation message (DONE)
+
+Export code:
+- Add check if project folder exists and if files exist
+- Add confirmation message (DONE)
+
+Project functions
+- Combine sets, adding links (DONE)
+
+Links scraping module
+- Parameters: project, rooturl, max_iter, continuous_iter (DONE)
+
+Transfer code over to list_projects
+***
+for index in range(1, len(projects) + 1):
+...
+***
+
+    *Optional*
+
+Create dependencies file with installation code:
+***
+import subprocess
+import sys
+
+def install(package):
+    subprocess.call([sys.executable, "-m", "pip", "install", package])
+***
+- beautifulsoup4
+- requests
+
+Implement progressbar (progressbar2)
+
+Modularise the whole program
+- Create a menu
+1. Import
+2. Export
+3. Run scraping
+4. Status
+5. etc..
