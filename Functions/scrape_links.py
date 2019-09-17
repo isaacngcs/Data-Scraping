@@ -5,6 +5,7 @@ Created on Mon Sep 16 15:52:02 2019
 @author: Isaac
 """
 
+from Functions.yes_no_check import yes_no_check
 from Classes.Project import Project
 from Functions.get_links import get_links
 
@@ -73,7 +74,7 @@ def scrape_links(project, max_iter = 5, continuous_iter = False):
         
         # Continue with next iteration or stop iterating
         if not continuous_iter and num_iter <= max_iter:
-            if input(f'Continue with iteration {num_iter}? (y/n) ') != 'y':
+            if yes_no_check(f'Continue with iteration {num_iter}?'):
                 break
             
     print(f'{num_iter} iterations done.\n')

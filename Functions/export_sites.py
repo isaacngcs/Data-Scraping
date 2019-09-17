@@ -5,6 +5,7 @@ Created on Fri Sep 13 18:07:16 2019
 @author: Isaac
 """
 
+from Functions.yes_no_check import yes_no_check
 from Classes.Project import Project
 
 # Function for saving links to files
@@ -43,11 +44,25 @@ def export_sites(project):
 # If it exists, prompt if user wants to overwrite files
 import pathlib
 
-def export_check(project):
+def export_confirmation(project):
+    
+    # *Confirm export
+    # export_confirmation()
+    # *Check if folder exist (y/n)
+    # get_project_list()
+    # *(y) Confirm overwrite (y/n)
+    # *(yy) Export sites
+    # export_sites()
+    # *(n) Confirm create new folder (y/n)
+    # create_new_folder() TODO
+    # *(ny) Create new folder
+    # *(ny) Export sites
+    # export_sites()
+
     path = pathlib.Path('internal_sites.csv')
     
     if path.is_file():
-        if input('Site files exist. Overwrite files? (y/n) ') != 'y':
+        if yes_no_check('Site files exist. Overwrite files?'):
             print('Sites not exported.')
         else:
             export_sites()

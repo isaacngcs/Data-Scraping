@@ -7,6 +7,7 @@ Created on Fri Sep 13 18:07:02 2019
 
 import csv
 import os
+import Functions.yes_no_check import yes_no_check
 from Classes.Project import Project
 
 # Initialise sets
@@ -45,14 +46,16 @@ def import_sites(project):
         for site in reader:
             external.add(site[0])
         print(f'{len(external)} external sites imported')
-
-# Check if user wants to import information
-def import_check(project):
-
-    if input('Import previous progress? (y/n) ') != 'n':
-        print('\nImporting sites...')
-        import_sites(project)
-    else:
-        print('\nSites not imported')
     
     return Project(project, root, internal, prescraped, external)
+
+# Check if user wants to import information
+def import_confirmation():
+
+    if yes_no_check('Import previous progress?'):
+        print('\nImporting sites...')
+        return True
+    else:
+        print('\nSites not imported')
+        return False
+    
