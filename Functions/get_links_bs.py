@@ -18,21 +18,32 @@ def get_links(url, siteurl):
     
     # Retrieve content from url
     page_link = url
-    page_response = requests.get(page_link, headers=headers, timeout=5)
+    page_response = requests.get(page_link, headers=headers, timeout=None)
     page_content = BeautifulSoup(page_response.content, "html.parser",
                                  from_encoding="iso-8859-1")
     
     # Create sets for internal and external links
     internal = set([])
     external = set([])
+    to_review = set([])
+    media = set([])
     
     # Retrieve links and sorts them into internal and external links
     for unsorted_link in page_content.findAll(
         'a', attrs={'href': re.compile("^http")}):
         link = unsorted_link.get('href')
         if link.startswith(siteurl):
-            internal.add(link)
+            end_split = link.split('/')[-1]
+            # If nothing after the last /, it is a proper webpage
+            # Else if # or ? after the last /, send to_review
+            # Else it is a media file
+            if not end_split:
+                internal.add(link)
+            elif end_split.startswith(('#', '?')):
+                to_review.add(link)
+            else:
+                media.add(link)
         else:
             external.add(link)
             
-    return internal, external
+    return internal, external, to_review, media

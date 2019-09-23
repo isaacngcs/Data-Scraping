@@ -32,7 +32,7 @@ def get_valid_root():
     valid_root = False
     while not valid_root:
         root = input('Enter new rooturl: ')
-        if valid.match(root):
+        if valid.search(root):
             root = format_url(root)
             valid_root = True
         else:

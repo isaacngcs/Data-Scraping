@@ -6,35 +6,73 @@ Created on Fri Sep 13 18:07:16 2019
 """
 
 from Functions.yes_no_check import yes_no_check
-from Classes.Project import Project
+
+name = ''
+path = ''
 
 # Function for saving links to files
 def export_sites(project):
-    print('\nSaving all internal links to internal_sites.csv')
+    
     import csv
-    with open('internal_sites.csv', mode = 'w', newline = '') as csv_save:
+    from Functions.set_path import set_path
+    
+    path = (set_path('Data Scraping') +
+            '\Projects\\' + project.get_name() + '\\')
+    
+    print('\nSaving rooturl to rooturl.txt')
+    with open(path + 'rooturl.txt', mode = 'w', encoding= 'utf-8') as txt_save:
+        root = project.get_root()
+        txt_save.write(root)
+        print(f'Root url {root} saved.')
+    
+    print('\nSaving all internal links to internal_sites.csv')
+    with open(path + 'internal_sites.csv', 
+              mode = 'w', newline = '', encoding= 'utf-8') as csv_save:
         writer = csv.writer(csv_save)
-        for site in sites:
+        internal = project.get_internal()
+        for site in internal:
             # csv.writer.writerow() expects a list of strings,
             # if a single string is given, it is treated as
             # a list of one-character strings instead
             # therefore [site] is required
             writer.writerow([site])
-    print(f'{len(sites)} internal sites saved.')
+    print(f'{len(internal)} internal sites saved.')
 
     print('\nSaving prescraped links to prescraped_sites.csv')
-    with open('prescraped_sites.csv', mode = 'w', newline = '') as csv_save:
+    with open(path + 'prescraped_sites.csv', 
+              mode = 'w', newline = '', encoding= 'utf-8') as csv_save:
         writer = csv.writer(csv_save)
-        for site in links_to_iter:
+        prescraped = project.get_prescraped()
+        for site in prescraped:
             writer.writerow([site])
-    print(f'{len(links_to_iter)} prescraped sites saved.')
+    print(f'{len(prescraped)} prescraped sites saved.')
 
     print('\nSaving all external links to external_sites.csv')
-    with open('external_sites.csv', mode = 'w', newline = '') as csv_save:
+    with open(path + 'external_sites.csv', 
+              mode = 'w', newline = '', encoding= 'utf-8') as csv_save:
         writer = csv.writer(csv_save)
-        for site in external_sites:
+        external = project.get_external()
+        for site in external:
             writer.writerow([site])
-    print(f'{len(external_sites)} external sites saved.')
+    print(f'{len(external)} external sites saved.')
+    
+    print('\nSaving all to_review links to to_review_sites.csv')
+    with open(path + 'to_review_sites.csv', 
+              mode = 'w', newline = '', encoding= 'utf-8') as csv_save:
+        writer = csv.writer(csv_save)
+        to_review = project.get_to_review()
+        for site in to_review:
+            writer.writerow([site])
+    print(f'{len(to_review)} to_review sites saved.')
+    
+    print('\nSaving all media links to media_sites.csv')
+    with open(path + 'media_sites.csv', 
+              mode = 'w', newline = '', encoding= 'utf-8') as csv_save:
+        writer = csv.writer(csv_save)
+        media = project.get_media()
+        for site in media:
+            writer.writerow([site])
+    print(f'{len(media)} media sites saved.')
     
     print('\n')
     
@@ -42,31 +80,11 @@ def export_sites(project):
 # and external_sites.csv files exist
 
 # If it exists, prompt if user wants to overwrite files
-import pathlib
-
-def export_confirmation(project):
+def export_confirmation():
     
-    # *Confirm export
-    # export_confirmation()
-    # *Check if folder exist (y/n)
-    # get_project_list()
-    # *(y) Confirm overwrite (y/n)
-    # *(yy) Export sites
-    # export_sites()
-    # *(n) Confirm create new folder (y/n)
-    # create_new_folder() TODO
-    # *(ny) Create new folder
-    # *(ny) Export sites
-    # export_sites()
-
-    path = pathlib.Path('internal_sites.csv')
-    
-    if path.is_file():
-        if yes_no_check('Site files exist. Overwrite files?'):
-            print('Sites not exported.')
-        else:
-            export_sites()
-            print('Sites exported')
+    if yes_no_check('Export to file?'):
+        print('\nExporting sites...')
+        return True
     else:
-        export_sites()
-        print('Sites exported.')
+        print('Sites not exported.')
+        return False

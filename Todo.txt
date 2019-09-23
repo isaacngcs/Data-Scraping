@@ -3,30 +3,67 @@ TO-DO
 
     !Important!
 
-Restructuring
-- Segment all classes and functions into one or two separate folders (DONE)
-- Import classes and functions (DONE)
+Filter prescraped URLs (DONE)
+- Add to_review, media to Project.py
+- Add to_review, media to scrape_links.py
+- Filter all webpages that do not end with /
+- If first character after the last / is # or ?, send to to_review
+- Else, send to media
+
+Change request timeout to None (DONE)
+
+Save encoding = UTF-8 (DONE)
+
+Add to_review and media to import/export code:
+- Import code for to_review and media (DONE)
+- Export code for to_review and media (DONE)
 
 Import/Export code takes in a project class variable
 - Import project (DONE)
-- Export project 
+- Export project (DONE)
 
 Functions:
-- new_project (DONE)
+- set_path (DONE)
 - list_projects (DONE)
-- yes_no_check (DONE)
+    create_projects_folder 
+    project_check
 
 Export code:
-- Add check if project folder exists and if files exist
+- Add check if project folder exists and if files exist (DONE)
 - Add confirmation message (DONE)
 
-Transfer code over to list_projects (DONE)
-***
-for index in range(1, len(projects) + 1):
-...
-***
+Customise scraping parameters (DONE)
 
-Create new data class/classes for FoodKing scrape
+Split iterations into batches of 100 links (DONE)
+- Modify scrape_links.py code
+- Change code for scraping parameters
+
+Changed 'Location Data.py' to 'FoodKing_Scrape.py' (DONE)
+
+Try different scraping libraries:
+- Change 'get_links.py' to 'get_links_bs.py' (DONE)
+- Create a scrapy version for get_links, 'get_links_scrapy.py'
+
+Create new classes for FoodKing scrape
+- Page.py (DONE)
+- Foodreview_Page.py (Child class)
+- Restaurant.py
+- Top_Picks.py
+- Author.py
+
+Store page sets in projects
+
+Use Pandas DataFrame to contain data
+- Save to feather
+- Save to pickle
+
+Use sqlite to contain data
+
+
+
+
+
+
 
 
     *Optional*
@@ -44,7 +81,7 @@ def install(package):
 
 Implement progressbar (progressbar2)
 
-Modularise the whole program
+Modularise the whole program:
 - Create a menu
 1. Import
 2. Export
@@ -52,5 +89,26 @@ Modularise the whole program
 4. Status
 5. etc..
 
-Function explanations
+Function explanations:
 - Input and Output
+
+Setup proxy rotation:
+- Find out how to do this
+Google (Using a HTTP Proxy Server in Ruby with Nord VPN) but with python
+
+Export code:
+- Choice to change project name if current one exists
+
+Multiprocessing
+- Get multiple URLs up at the same time
+
+Improve Scraping Access
+(https://towardsdatascience.com/5-strategies-to-write-unblock-able-web-scrapers-in-python-5e40c147bdaf)
+- Randomise User-Agent
+- Provide Request Headers
+- Setup referers (Backlinks)
+- Setup proxies
+***
+r = requests.get('example.com',headers=headers,proxies={'https': proxy_url})
+***
+- Add Delays
